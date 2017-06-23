@@ -734,6 +734,11 @@ public class ItemTouchHelperExtension extends RecyclerView.ItemDecoration
         if (mSelected instanceof Extension) {
             return ((Extension) mSelected).getActionWidth();
         }
+
+        if (mCallback.getActionsWidth() > 0.0f) {
+            return mCallback.getActionsWidth();
+        }
+
         return mRecyclerView.getWidth();
     }
 
@@ -2234,6 +2239,10 @@ public class ItemTouchHelperExtension extends RecyclerView.ItemDecoration
                 return viewSizeOutOfBounds > 0 ? 1 : -1;
             }
             return value;
+        }
+
+        public float getActionsWidth() {
+            return 0.0f;
         }
     }
 
