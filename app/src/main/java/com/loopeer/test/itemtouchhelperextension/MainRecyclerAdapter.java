@@ -1,8 +1,6 @@
 package com.loopeer.test.itemtouchhelperextension;
 
 import android.content.Context;
-import android.support.v4.view.MotionEventCompat;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,6 +13,9 @@ import com.loopeer.itemtouchhelperextension.ItemTouchHelperExtension;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.core.view.MotionEventCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class MainRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 

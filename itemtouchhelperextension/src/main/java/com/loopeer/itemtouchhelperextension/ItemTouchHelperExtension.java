@@ -8,14 +8,6 @@ import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.os.Build;
-import android.support.annotation.Nullable;
-import android.support.v4.view.GestureDetectorCompat;
-import android.support.v4.view.MotionEventCompat;
-import android.support.v4.view.VelocityTrackerCompat;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.RecyclerView.ViewHolder;
-import android.support.v7.widget.helper.ItemTouchUIUtil;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.HapticFeedbackConstants;
@@ -30,6 +22,15 @@ import android.view.animation.Interpolator;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.Nullable;
+import androidx.core.view.GestureDetectorCompat;
+import androidx.core.view.MotionEventCompat;
+import androidx.core.view.VelocityTrackerCompat;
+import androidx.core.view.ViewCompat;
+import androidx.recyclerview.widget.ItemTouchUIUtil;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
 public class ItemTouchHelperExtension extends RecyclerView.ItemDecoration
         implements RecyclerView.OnChildAttachStateChangeListener {
@@ -136,8 +137,8 @@ public class ItemTouchHelperExtension extends RecyclerView.ItemDecoration
     /**
      * Currently selected view holder
      */
-    RecyclerView.ViewHolder mSelected = null;
-    RecyclerView.ViewHolder mPreOpened = null;
+    ViewHolder mSelected = null;
+    ViewHolder mPreOpened = null;
 
     /**
      * The reference coordinates for the action start. For drag & drop, this is the time long
@@ -918,7 +919,7 @@ public class ItemTouchHelperExtension extends RecyclerView.ItemDecoration
             return;
         }
         // may swap.
-        RecyclerView.ViewHolder target = mCallback.chooseDropTarget(viewHolder, swapTargets, x, y);
+        ViewHolder target = mCallback.chooseDropTarget(viewHolder, swapTargets, x, y);
         if (target == null) {
             mSwapTargets.clear();
             mDistances.clear();
@@ -940,7 +941,7 @@ public class ItemTouchHelperExtension extends RecyclerView.ItemDecoration
     @Override
     public void onChildViewDetachedFromWindow(View view) {
         removeChildDrawingOrderCallbackIfNecessary(view);
-        final RecyclerView.ViewHolder holder = mRecyclerView.getChildViewHolder(view);
+        final ViewHolder holder = mRecyclerView.getChildViewHolder(view);
         if (holder == null) {
             return;
         }
@@ -957,7 +958,7 @@ public class ItemTouchHelperExtension extends RecyclerView.ItemDecoration
     /**
      * Returns the animation type or 0 if cannot be found.
      */
-    private int endRecoverAnimation(RecyclerView.ViewHolder viewHolder, boolean override) {
+    private int endRecoverAnimation(ViewHolder viewHolder, boolean override) {
         final int recoverAnimSize = mRecoverAnimations.size();
         for (int i = recoverAnimSize - 1; i >= 0; i--) {
             final RecoverAnimation anim = mRecoverAnimations.get(i);
@@ -1486,7 +1487,7 @@ public class ItemTouchHelperExtension extends RecyclerView.ItemDecoration
          * implementations for different platform versions.
          * <p>
          * By default, {@link Callback} applies these changes on
-         * {@link RecyclerView.ViewHolder#itemView}.
+         * {@link ViewHolder#itemView}.
          * <p>
          * For example, if you have a use case where you only want the text to move when user
          * swipes over the view, you can do the following:
@@ -1952,7 +1953,7 @@ public class ItemTouchHelperExtension extends RecyclerView.ItemDecoration
          * @param actionState One of {@link ItemTouchHelperExtension#ACTION_STATE_IDLE},
          *                    {@link ItemTouchHelperExtension#ACTION_STATE_SWIPE} or
          *                    {@link ItemTouchHelperExtension#ACTION_STATE_DRAG}.
-         * @see #clearView(RecyclerView, RecyclerView.ViewHolder)
+         * @see #clearView(RecyclerView, ViewHolder)
          */
         public void onSelectedChanged(ViewHolder viewHolder, int actionState) {
             if (viewHolder != null) {
@@ -2089,7 +2090,7 @@ public class ItemTouchHelperExtension extends RecyclerView.ItemDecoration
          * also completed its animation.
          * <p>
          * This is a good place to clear all changes on the View that was done in
-         * {@link #onSelectedChanged(RecyclerView.ViewHolder, int)},
+         * {@link #onSelectedChanged(ViewHolder, int)},
          * {@link #onChildDraw(Canvas, RecyclerView, ViewHolder, float, float, int,
          * boolean)} or
          * {@link #onChildDrawOver(Canvas, RecyclerView, ViewHolder, float, float, int, boolean)}.
